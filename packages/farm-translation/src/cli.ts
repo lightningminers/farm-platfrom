@@ -5,14 +5,11 @@ import * as path from "path";
 import * as fs from "fs";
 import * as util from "util";
 import * as _ from "lodash";
-import * as translate from "./translation";
 import { format, IConfig, baiduPlatfrom } from "./utils";
-import mapping from "./mapping";
 
 const baidu = "baidu";
 const google = "google";
 const configFilename = "farmconfig.json";
-const defaultFilename = "translation_i18n.json";
 const cwd = process.cwd();
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
@@ -35,14 +32,10 @@ const run = async (i18nFilename: string) => {
     const configJSON = JSON.parse(configString) as IConfig;
     const i18nString = await readFile(`${path.resolve(cwd, i18nFilename)}`, "utf8");
     const i18nJSON = JSON.parse(i18nString);
-    const { localizes, platfrom } = configJSON;
+    const { localizes, platfrom, output } = configJSON;
     if (platfrom === baidu) {
-      const output = Object.create(null);
-      if (_.isUndefined(configJSON.output)) {
-        output["filename"] = defaultFilename;
-      }
-      if (_.isUndefined(configJSON.output.filename)) {
-        output["filename"] = defaultFilename;
+      if (_.isUndefined(configJSON.output) || _.isUndefined(configJSON.output.filename)) {
+        throw new Error("output filename is empty.");
       }
       // const response = await translate.baidu('apple','en', 'zh', '2015063000000001', '12345678');
       const data = await baiduPlatfrom(i18nJSON, localizes, configJSON);

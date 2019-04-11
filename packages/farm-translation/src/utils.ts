@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import { warning } from "usedjs/lib/loggers";
+import { warning, info } from "usedjs/lib/loggers";
 import mapping from "./mapping";
 import * as translate from "./translation";
 
@@ -59,11 +59,12 @@ export const baiduPlatfrom = async(i18nJSON: any, localizes: string[], config: I
       const response = await translate.baidu(o.message, baiduFrom, baiduTo, config.baidu!.appId, config.baidu!.appSecret);
       const { data } = response;
       if (!data.error_code) {
+        info(`${localize}-${iterator}`);
         t[localize] = {
           "message": data.trans_result.dst
         }
       } else {
-        warning(`${JSON.stringify(data)}`);
+        warning(`${localize}-${iterator}-${JSON.stringify(data)}`);
         t[localize] = {
           "message": ""
         }

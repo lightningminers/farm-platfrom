@@ -60,7 +60,7 @@ typings/
 # next.js build output
 .next
 
-lib
+#lib
 farmconfig.json
 i18n.json
 translation_i18n.json
