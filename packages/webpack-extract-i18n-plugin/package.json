@@ -1,0 +1,25 @@
+{
+  "name": "webpack-extract-i18n-plugin",
+  "version": "1.0.1",
+  "description": "",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "keywords": [
+    "chrome",
+    "i18n"
+  ],
+  "author": "icepy",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/lodash": "^4.14.123",
+    "@types/node": "^11.13.2",
+    "@types/webpack": "^4.4.27"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "usedjs": "^1.0.3"
+  }
+}
