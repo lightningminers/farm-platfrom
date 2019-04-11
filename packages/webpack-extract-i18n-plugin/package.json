@@ -13,12 +13,10 @@
   ],
   "author": "icepy",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "@types/lodash": "^4.14.123",
     "@types/node": "^11.13.2",
-    "@types/webpack": "^4.4.27"
-  },
-  "dependencies": {
+    "@types/webpack": "^4.4.27",
     "lodash": "^4.17.11",
     "usedjs": "^1.0.3"
   }

@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+
+const pkg = require('../package');
+const program = require('commander');
+const chalk = require('chalk');
+const run = require('../lib/cli').default;
+
+program.version(pkg.version);
+program.description('support i18n translation');
+program.command('*');
+program.action((env) => {
+  run(env);
+});
+program.parse(process.argv);
+
+program.on('--help', () => {
+  
+});
