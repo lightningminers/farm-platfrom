@@ -1,5 +1,5 @@
-import * as _ from "lodash";
+import * as translation from "./translation";
 
-const farmTranslation = async () => {
-
+export default {
+  ...translation
 }
