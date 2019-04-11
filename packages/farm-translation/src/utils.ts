@@ -73,3 +73,30 @@ export const baiduPlatfrom = async(i18nJSON: any, localizes: string[], config: I
   }
   return i18nJSON;
 }
+
+export const googlePlatfrom = async(i18nJSON: any, localizes: string[], config: IConfig) => {
+  const { origin } = config;
+  const keys = Object.keys(i18nJSON);
+  for (const localize of localizes) {
+    for (const iterator of keys) {
+      const t = i18nJSON[iterator];
+      const o = t[origin];
+      try {
+        const response = await translate.google(o.message, origin, localize);
+        const { result } = response;
+        if (result) {
+          info(`${localize}-${iterator}-${JSON.stringify(result)}`);
+          t[localize] = {
+            "message": result[0] || "",
+          }
+        }
+      } catch (e) {
+        warning(`${localize}-${iterator}-${JSON.stringify(e.message)}`);
+        t[localize] = {
+          "message": ""
+        }
+      }
+    }
+  }
+  return i18nJSON;
+}

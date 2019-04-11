@@ -5,7 +5,7 @@ import * as path from "path";
 import * as fs from "fs";
 import * as util from "util";
 import * as _ from "lodash";
-import { format, IConfig, baiduPlatfrom } from "./utils";
+import { format, IConfig, baiduPlatfrom, googlePlatfrom } from "./utils";
 
 const baidu = "baidu";
 const google = "google";
@@ -37,7 +37,6 @@ const run = async (i18nFilename: string) => {
       if (_.isUndefined(configJSON.output) || _.isUndefined(configJSON.output.filename)) {
         throw new Error("output filename is empty.");
       }
-      // const response = await translate.baidu('apple','en', 'zh', '2015063000000001', '12345678');
       const data = await baiduPlatfrom(i18nJSON, localizes, configJSON);
       const outputFile = path.resolve(cwd, output.filename);
       const outputData = format(data);
@@ -45,7 +44,11 @@ const run = async (i18nFilename: string) => {
       printOk(`${outputFile} 创建成功`);
     }
     if (platfrom === google) {
-      // TODO
+      const data = await googlePlatfrom(i18nJSON, localizes, configJSON);
+      const outputFile = path.resolve(cwd, output.filename);
+      const outputData = format(data);
+      await writeFile(outputFile, outputData);
+      printOk(`${outputFile} 创建成功`);
     }
   } catch (e) {
     printError(JSON.stringify(`${e.stack} \n ${e.message}`));
