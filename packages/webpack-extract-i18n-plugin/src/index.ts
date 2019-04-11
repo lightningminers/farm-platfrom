@@ -31,8 +31,8 @@ class WebpackExtractI18nPlugin implements webpack.Plugin {
   public options: IOptions;
 
   constructor(options: IOptions){
-    const { localizes, space, output, entry } = options;
-    if (_.isUndefined(localizes)) {
+    const { space, output, entry } = options;
+    if (_.isUndefined(options.localizes)) {
       options.localizes = [defaultLocalize];
     }
     if (_.isUndefined(space) || !_.isNumber(space)) {
@@ -44,7 +44,7 @@ class WebpackExtractI18nPlugin implements webpack.Plugin {
         filename: defaultI18nFilename
       }
     }
-    if (!checkLocalizeType(localizes!)) {
+    if (!checkLocalizeType(options.localizes!)) {
       throw new Error("not support localize type.");
     }
     if (_.isUndefined(entry)) {
@@ -70,7 +70,7 @@ class WebpackExtractI18nPlugin implements webpack.Plugin {
         const { dirPath, filename } = output!;
         keys.forEach((key) => {
           compilation.assets[
-            path.resolve(`${dirPath}/${key}/${filename}`)
+            path.normalize(`${dirPath}/${key}/${filename}`)
           ] = {
             source(){
               return format(res[key], space!);
