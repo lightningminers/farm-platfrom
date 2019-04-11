@@ -51,6 +51,7 @@ const run = async (i18nFilename: string) => {
       printOk(`${outputFile} 创建成功`);
     }
   } catch (e) {
+    printError(e.code);
     printError(JSON.stringify(`${e.stack} \n ${e.message}`));
   }
 }

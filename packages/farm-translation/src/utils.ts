@@ -91,7 +91,7 @@ export const googlePlatfrom = async(i18nJSON: any, localizes: string[], config: 
           }
         }
       } catch (e) {
-        warning(`${localize}-${iterator}-${JSON.stringify(e.message)}`);
+        warning(`code: ${e.code} | ${localize}-${iterator}-${JSON.stringify(e.message)}`);
         t[localize] = {
           "message": ""
         }
