@@ -2,7 +2,7 @@
 
 ![img](https://img.shields.io/github/license/icepy/farm-platfrom.svg)
 
-自动调百度翻译 API 或 Google translate API 进行翻译的命令行工具与 Node.js 包
+使用 Google translate API 或 百度翻译 API 进行翻译的命令行工具与 Node.js 模块
 
 ## Install
 
@@ -29,4 +29,4 @@ $ yarn add farm-translation
 }
 ```
 
-如果你是用于 Node.js 包，导出模块中包含请求和数据的处理。
+如果你是用于 Node.js 环境，导出模块中包含请求和数据的处理。
