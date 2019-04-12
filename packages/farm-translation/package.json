@@ -12,7 +12,7 @@
   },
   "keywords": [],
   "author": "icepy",
-  "license": "MIT",
+  "license": "LGPL-3.0",
   "dependencies": {
     "@google-cloud/translate": "^3.0.1",
     "@types/crypto-js": "^3.1.43",

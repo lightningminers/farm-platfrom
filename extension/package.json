@@ -1,0 +1,34 @@
+{
+  "name": "farm-i18n",
+  "version": "1.0.0",
+  "description": "farm-i18n 是一个管理 i18n 国际化配置文件的扩展",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "MODE=development webpack -w --mode=development",
+    "build": "MODE=production webpack --mode=production"
+  },
+  "keywords": [],
+  "author": "icepy",
+  "license": "LGPL-3.0",
+  "dependencies": {
+    "@types/chrome": "^0.0.81",
+    "@types/lodash": "^4.14.123",
+    "@types/react": "^16.8.12",
+    "@types/react-dom": "^16.8.3",
+    "lodash": "^4.17.11",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^5.2.1",
+    "css-loader": "^2.1.1",
+    "file-loader": "^3.0.1",
+    "source-map-loader": "^0.2.4",
+    "style-loader": "^0.23.1",
+    "typescript": "^3.4.1",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-extract-i18n-plugin": "^1.0.2"
+  }
+}
