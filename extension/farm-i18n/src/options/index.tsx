@@ -7,6 +7,11 @@ import Header from "./components/header";
 import * as local from "./local";
 import Home from "./pages/home";
 import Translate from "./pages/translate";
+import SingletonData from "@/shared/SingletonData";
+import { storageGet } from "@/shared/utils";
+
+const FARM_I18N_STORAGE_KEY = "FARM_I18N_STORAGE_KEY";
+const singletonData = SingletonData.sharedInstance();
 
 interface IProps {}
 
@@ -43,7 +48,12 @@ class App extends React.Component<IProps> {
   }
 }
 
-ReactDOM.render(
-  <App />,
-  document.querySelector("#app")
-)
+storageGet(FARM_I18N_STORAGE_KEY).then((v) => {
+  console.log(v);
+  singletonData.parseArray(v.FARM_I18N_STORAGE_KEY || []);
+  ReactDOM.render(
+    <App />,
+    document.querySelector("#app")
+  )
+});
+

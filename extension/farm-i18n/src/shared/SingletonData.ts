@@ -1,7 +1,6 @@
-export interface ILocalizeResult {
-  localize: string;
-  result: string;
-}
+import { storageSet } from "./utils";
+
+const FARM_I18N_STORAGE_KEY = "FARM_I18N_STORAGE_KEY";
 
 export interface IData {
   key: string;
@@ -10,7 +9,7 @@ export interface IData {
   tags: string[];
   result: string;
   localizes: string[];
-  localizesResult: ILocalizeResult[];
+  localizesResult: string;
 }
 
 export default class SingletonData {
@@ -46,11 +45,26 @@ export default class SingletonData {
     return this.dataMap.size;
   }
 
+  public setData(key: string, data: IData){
+    this.dataMap.set(key, data);
+  }
+
+  public removeData(key: string) {
+    this.dataMap.delete(key);
+  }
+
   public toArray(): IData[] {
     const result: IData[] = [];
     this.dataMap.forEach((value: IData) => {
       result.push(value);
     });
     return result;
+  }
+
+  public saveStorage(){
+    const result = this.toArray();
+    storageSet({
+      [FARM_I18N_STORAGE_KEY]: result
+    });
   }
 }

@@ -1,3 +1,5 @@
+import { IData } from "./SingletonData";
+
 export const createTab = (url: string): Promise<chrome.tabs.Tab> => {
   return new Promise((resolve) => {
     chrome.tabs.create({
@@ -38,4 +40,25 @@ export const storageSet = (val: any): Promise<number> => {
       resolve(0);
     });
   });
+}
+
+export const extractText = (data: IData | undefined) => {
+  if (data) {
+    let r = '';
+    const { origin } = data;
+    const result = JSON.parse(data.result);
+    const keys = Object.keys(result);
+    for (const iterator of keys) {
+      const t = result[iterator][origin];
+      let w = '';
+      if (t) {
+        w = `${t["message"]}\n`
+      } else {
+        w = `[icepy]\n`
+      }
+      r += w;
+    }
+    return r;
+  }
+  return "";
 }

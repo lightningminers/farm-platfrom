@@ -6,10 +6,8 @@ import createUUID from "usedjs/lib/createUUID";
 import * as local from "@/options/local";
 import CreateI18nForm from "./components/createForm";
 import TEMPLATE from "./template";
-import { storageGet, storageSet } from "@/shared/utils";
 import SingletonData, { IData } from "@/shared/SingletonData";
 
-const storageKey = "FARM_I18N_STORAGE_KEY";
 const singletonData = SingletonData.sharedInstance();
 
 const createI18n = (origin: string, result: string) => {
@@ -21,7 +19,7 @@ const createI18n = (origin: string, result: string) => {
     result: result ? result : TEMPLATE,
     tags: ["developer"],
     localizes: [],
-    localizesResult: [],
+    localizesResult: "",
   }
 }
 
@@ -89,7 +87,8 @@ class Home extends React.Component<IProps, IState> {
             <a href="javascript:;" onClick={() => {
               const { data } = this.state;
               const newData = data.filter(v => v.id !== record.id);
-              storageSet({ [storageKey]: newData});
+              singletonData.removeData(record.id);
+              singletonData.saveStorage();
               this.setState({
                 data: newData,
               })
@@ -101,13 +100,9 @@ class Home extends React.Component<IProps, IState> {
   }
 
   public componentDidMount(){
-    storageGet(storageKey).then((v) => {
-      const data = v.FARM_I18N_STORAGE_KEY;
-      if (data.length > 0) {
-        this.setState({
-          data
-        });
-      }
+    const data = singletonData.toArray();
+    this.setState({
+      data,
     });
   }
 
@@ -134,8 +129,8 @@ class Home extends React.Component<IProps, IState> {
             const { origin, result } = value;
             const localize = createI18n(origin, result);
             data.push(localize);
-            storageSet({ [storageKey]: data});
-            singletonData.parseArray(data);
+            singletonData.setData(localize.id, localize);
+            singletonData.saveStorage();
             this.setState({
               data,
               visible: false
