@@ -1,5 +1,14 @@
 {
   "appName": {
     "message": "farm-i18n"
+  },
+  "OPTIONS_MENU_I18N_LIST": {
+    "message": "翻译任务"
+  },
+  "OPTIONS_CREATE_I18N_TASK": {
+    "message": "创建翻译任务"
+  },
+  "OPTIONS_CREATE_TEXT": {
+    "message": "创建"
   }
 }
