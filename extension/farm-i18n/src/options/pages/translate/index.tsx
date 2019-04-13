@@ -88,7 +88,11 @@ class Translate extends React.Component<IProps, IState> {
             }
             i = i + 1;
           }
-          data.localizesResult = JSON.stringify(localizesResult);
+          const { localizes } = data;
+          if (!(localizes.indexOf(localize) > -1)) {
+            data.localizes.push(localize);
+          }
+          data.localizesResult = JSON.stringify(localizesResult, null, 2);
           singletonData.setData(data.id, data);
           singletonData.saveStorage();
           this.setState({

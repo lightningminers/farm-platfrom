@@ -4,6 +4,8 @@
 
 farm-i18n 是一个管理 i18n 国际化配置文件的扩展
 
+![](./farm-i18n.gif)
+
 ## develop
 
 ```bash
