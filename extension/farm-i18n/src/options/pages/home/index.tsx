@@ -7,22 +7,23 @@ import * as local from "@/options/local";
 import CreateI18nForm from "./components/createForm";
 import TEMPLATE from "./template";
 import SingletonData, { IData } from "@/shared/SingletonData";
+import { tagColors } from "@/shared/colors";
 
 const singletonData = SingletonData.sharedInstance();
 
-const createI18n = (origin: string, result: string) => {
+const createI18n = (origin: string, result: string, name: string, tag: string) => {
   const uuid = createUUID();
   return {
     key: uuid,
     id: uuid,
+    name,
     origin,
     result: result ? result : TEMPLATE,
-    tags: ["developer"],
+    tag,
     localizes: [],
     localizesResult: "",
   }
 }
-
 
 interface IProps extends RouteComponentProps<any>{}
 interface IState {
@@ -46,12 +47,17 @@ class Home extends React.Component<IProps, IState> {
         render: (text: string) => <NavLink to={`/translate/${text}`}>{text}</NavLink>,
       },
       {
-        title: "Origin",
+        title: "名称",
+        dataIndex: "name",
+        key: "name"
+      },
+      {
+        title: "翻译源",
         dataIndex: "origin",
         key: "origin",
       },
       {
-        title: "Localizes",
+        title: "本地化",
         dataIndex: "localizes",
         key: "localizes",
         render: (localizes: string[]) => {
@@ -61,26 +67,19 @@ class Home extends React.Component<IProps, IState> {
         }
       },
       {
-        title: "Tags",
-        key: "tags",
-        dataIndex: "tags",
-        render: (tags: string[]) => (
-          <span>
-            {
-
-              tags.map((tag: any) => {
-                let color = tag.length > 5 ? "geekblue" : "green";
-                if (tag === "loser") {
-                  color = "volcano";
-                }
-                return <Tag color={color} key={tag}>{tag.toUpperCase()}</Tag>;
-              })
-            }
-          </span>
-        ),
+        title: "Tag",
+        key: "tag",
+        dataIndex: "tag",
+        render: (tag: string) => {
+          return (
+            <span>
+              <Tag color={tagColors[tag] || "geekblue"} key={tag}>{tag.toUpperCase()}</Tag>
+            </span>
+          )
+        },
       },
       {
-        title: "Action",
+        title: "可执行",
         key: "action",
         render: (record: IData) => (
           <span>
@@ -111,7 +110,7 @@ class Home extends React.Component<IProps, IState> {
     return (
       <div className={styles["home"]}>
         <div className={styles["home-container"]}>
-          <button
+          <div
             className={styles["button"]}
             onClick={() => {
               this.setState({
@@ -120,14 +119,14 @@ class Home extends React.Component<IProps, IState> {
             }}
           >
             {local.OPTIONS_CREATE_TEXT}
-          </button>
+          </div>
         </div>
         <Table columns={this.columns} dataSource={data} />
         <CreateI18nForm
           visible={visible}
           handleOk={(value) => {
-            const { origin, result } = value;
-            const localize = createI18n(origin, result);
+            const { origin, result, name, tag } = value;
+            const localize = createI18n(origin, result, name, tag);
             data.push(localize);
             singletonData.setData(localize.id, localize);
             singletonData.saveStorage();

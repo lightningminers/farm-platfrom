@@ -43,7 +43,7 @@ class Translate extends React.Component<IProps, IState> {
     }
   }
 
-  public createTranslateResult = (e: React.MouseEvent<HTMLButtonElement>) => {
+  public createTranslateResult = (e: React.MouseEvent<HTMLDivElement>) => {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         const { localize } = values;
@@ -104,7 +104,7 @@ class Translate extends React.Component<IProps, IState> {
     });
   }
 
-  public exportResult = (e: React.MouseEvent<HTMLButtonElement>) => {
+  public exportResult = (e: React.MouseEvent<HTMLDivElement>) => {
 
   }
 
@@ -119,12 +119,7 @@ class Translate extends React.Component<IProps, IState> {
     const { data } = this.state;
     return (
       <>
-        <h5>翻译源: { data ? data.origin : ""}</h5>
-        <TextArea
-          placeholder=""
-          autosize={{ minRows: 2, maxRows: 20 }}
-          value={ data ? data.result : ""}
-        />
+
       </>
     );
   }
@@ -152,17 +147,22 @@ class Translate extends React.Component<IProps, IState> {
               )
             }
           </Form.Item>
-          <button
+          <div
             className={styles["create-translate-result"]}
             onClick={this.createTranslateResult}
-          >输出</button>
-          <button
+          >
+            输出
+          </div>
+          <div
             className={styles["create-translate-result"]}
             onClick={this.exportResult}
-          >导出</button>
+          >
+            导出
+          </div>
         </Form>
         <h5>i18n 输出结果: { data ? localize : "en"}</h5>
         <TextArea
+          className={styles["textrea-container"]}
           placeholder=""
           autosize={{ minRows: 2, maxRows: 20 }}
           value={ data ? data.localizesResult : ""}
@@ -176,16 +176,25 @@ class Translate extends React.Component<IProps, IState> {
     const text = extractText(data);
     return (
       <>
-        <h5>待翻译文本: </h5>
+        <h5>翻译源: { data ? data.origin : ""}</h5>
         <TextArea
+          className={styles["textrea-container"]}
           placeholder=""
-          autosize={{ minRows: 2, maxRows: 10 }}
+          autosize={{ minRows: 2, maxRows: 8 }}
+          value={ data ? data.result : ""}
+        />
+        <h5 className={styles["translate-result"]}>待翻译文本: </h5>
+        <TextArea
+          className={styles["textrea-container"]}
+          placeholder=""
+          autosize={{ minRows: 2, maxRows: 8 }}
           value={ text }
         />
         <h5 className={styles["translate-result"]}>翻译结果: </h5>
         <TextArea
+          className={styles["textrea-container"]}
           placeholder=""
-          autosize={{ minRows: 2, maxRows: 10 }}
+          autosize={{ minRows: 2, maxRows: 8 }}
           value={ translateResult }
           onChange={this.onTextAreaTranslateResult}
         />
@@ -199,11 +208,6 @@ class Translate extends React.Component<IProps, IState> {
     return (
       <div className={styles["translate"]}>
         <div className={styles["translate-container"]}>
-          <div className={styles["origin-result"]}>
-            {
-              this.renderOriginResult()
-            }
-          </div>
           <div className={styles["wait-translate-i18n-text"]}>
             {
               this.renderWaitTranslateI18nText()

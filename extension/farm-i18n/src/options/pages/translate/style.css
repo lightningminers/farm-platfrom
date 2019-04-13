@@ -55,4 +55,11 @@
   border-radius: 5px;
   margin-top: 4px;
   margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.textrea-container {
+  font-size: 12px;
 }

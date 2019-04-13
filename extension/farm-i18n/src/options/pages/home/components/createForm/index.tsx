@@ -1,21 +1,38 @@
 import * as React from "react";
-import { Form, Select, Modal } from "antd";
+import { Form, Select, Modal, Input } from "antd";
 import { FormComponentProps } from "antd/lib/form";
 import localizes from "@/shared/localizes";
 import * as local from "@/options/local";
-
+import styles from "./style.css"
 
 const Option = Select.Option;
 
 interface IForm {
   origin: string;
   result: string;
+  name: string;
+  tag: string;
 }
 interface IProps extends FormComponentProps {
   visible: boolean;
   handleOk: (value: IForm) => void;
   handleCancel: () => void;
 }
+
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 26 },
+    sm: { span: 6 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 16 },
+  },
+};
+
+const tags = [
+  "chrome"
+]
 
 class CreateI18nForm extends React.Component<IProps> {
 
@@ -29,9 +46,17 @@ class CreateI18nForm extends React.Component<IProps> {
   }
 
   public handleOk = () => {
-    this.props.form.validateFieldsAndScroll((err, values) => {
+    this.props.form.validateFieldsAndScroll((err, values: IForm) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        if (!values.name){
+          alert("请填写名称")
+          return;
+        }
+        if (!values.tag) {
+          alert("请填写 Tag")
+          return;
+        }
         if (this.readFileStatus) {
           values["result"] = this.readFileResult;
         }
@@ -71,7 +96,7 @@ class CreateI18nForm extends React.Component<IProps> {
         onOk={this.handleOk}
         onCancel={this.handleCancel}
       >
-        <Form>
+        <Form {...formItemLayout}>
           <Form.Item
             label="选择翻译源"
           >
@@ -86,6 +111,34 @@ class CreateI18nForm extends React.Component<IProps> {
                     })
                   }
                 </Select>
+              )
+            }
+          </Form.Item>
+          <Form.Item
+            label="Tag"
+          >
+            {
+              getFieldDecorator("tag", {
+                initialValue: tags[0]
+              })(
+                <Select>
+                  {
+                    tags.map((v) => {
+                      return <Option key={v} value={v}>{v}</Option>
+                    })
+                  }
+                </Select>
+              )
+            }
+          </Form.Item>
+          <Form.Item
+            label="名称"
+          >
+            {
+              getFieldDecorator("name", {
+
+              })(
+                <Input />
               )
             }
           </Form.Item>

@@ -15,4 +15,4 @@ $ npm run dev
 
 ## Releases
 
-- [Releases 1.0.0](https://github.com/icepy/farm-platfrom/releases/tag/1.0.0)
+[https://github.com/icepy/farm-platfrom/releases](https://github.com/icepy/farm-platfrom/releases)

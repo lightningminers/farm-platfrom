@@ -5,8 +5,9 @@ const FARM_I18N_STORAGE_KEY = "FARM_I18N_STORAGE_KEY";
 export interface IData {
   key: string;
   id: string;
+  name: string;
   origin: string;
-  tags: string[];
+  tag: string;
   result: string;
   localizes: string[];
   localizesResult: string;

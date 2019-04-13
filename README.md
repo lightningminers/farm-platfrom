@@ -12,7 +12,7 @@ i18n 国际化运营支持平台
 
 ## 如何使用
 
-请先下载 [Chrome Extension Releases 1.0.0](https://github.com/icepy/farm-platfrom/releases/tag/1.0.0)  使用 `farm-i18n` 来管理你的 i18n 配置文件。
+请先下载 [Chrome Extension Releases](https://github.com/icepy/farm-platfrom/releases)  使用 `farm-i18n` 来管理你的 i18n 配置文件。
 
 ![](./extension/farm-i18n/farm-i18n.gif)
 
