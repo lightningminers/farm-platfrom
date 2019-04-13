@@ -61,3 +61,4 @@ typings/
 .next
 
 chrome/**/*.bundle.js
+*.zip
