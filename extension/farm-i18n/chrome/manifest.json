@@ -1,5 +1,5 @@
 {
-  "version": "1.0.2",
+  "version": "1.0.3",
   "name": "farm-i18n",
   "manifest_version": 2,
   "description": "farm-i18n 是一个管理 i18n 国际化配置文件的扩展",

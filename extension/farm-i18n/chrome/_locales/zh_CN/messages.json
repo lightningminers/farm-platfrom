@@ -10,5 +10,35 @@
   },
   "OPTIONS_CREATE_TEXT": {
     "message": "创建"
+  },
+  "OPTIONS_OUTPUT_TEXT": {
+    "message": "输出"
+  },
+  "OPTIONS_EXPORT_TEXT": {
+    "message": "导出"
+  },
+  "OPTIONS_TRANSLATE_ORIGIN": {
+    "message": "翻译源: "
+  },
+  "OPTIONS_TRANSLATE_RESULT": {
+    "message": "翻译结果: "
+  },
+  "OPTIONS_WAIT_TRANSLATE_RESULT": {
+    "message": "待翻译文本: "
+  },
+  "OPTIONS_I18N_OUTPUT_RESULT": {
+    "message": "i18n 输出结果: "
+  },
+  "OPTIONS_TRANSLATE_RESULT_IS_EMPTY": {
+    "message": "翻译结果不能为空"
+  },
+  "OPTIONS_EXPORT_FILE": {
+    "message": "导出文件"
+  },
+  "OPTIONS_DOWNLOAD_TEXT": {
+    "message": "下载"
+  },
+  "OPTIONS_DOWNLOAD_NAME_TEXT": {
+    "message": "下载名称"
   }
 }

@@ -1,8 +1,8 @@
 import * as React from "react";
-import styles from "./style.css";
 import { Modal, Form, Tag, Input } from "antd";
 import { FormComponentProps } from "antd/lib/form";
 import { tagColors } from "@/shared/colors";
+import * as local from "@/options/local";
 
 interface IProps extends FormComponentProps {
   tag: string;
@@ -26,15 +26,15 @@ const WriteFile = (props: IProps) => {
   }
   return (
     <Modal
-      title={"导出文件"}
+      title={local.OPTIONS_EXPORT_FILE}
       visible={visible}
       onOk={onOK}
       onCancel={onCancanl}
-      okText={"下载"}
+      okText={local.OPTIONS_DOWNLOAD_TEXT}
     >
      <Form>
        <Form.Item
-        label="下载名称"
+        label={local.OPTIONS_DOWNLOAD_NAME_TEXT}
        >
         {
           getFieldDecorator("name", {

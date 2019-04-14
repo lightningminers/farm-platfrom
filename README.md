@@ -14,7 +14,7 @@ i18n 国际化运营支持平台
 
 请先下载 [Chrome Extension Releases](https://github.com/icepy/farm-platfrom/releases)  使用 `farm-i18n` 来管理你的 i18n 配置文件。
 
-![](./extension/farm-i18n/farm-i18n-1.gif)
+![](./extension/farm-i18n/farm-i18n-2.gif)
 
 格式如下：
 

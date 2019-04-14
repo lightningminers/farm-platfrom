@@ -7,6 +7,7 @@ import { FormComponentProps } from "antd/lib/form"
 import { extractText, exportFile } from "@/shared/utils";
 import localizes from "@/shared/localizes";
 import WriteFile from "./components/writeFile";
+import * as local from "../../local";
 
 interface IParams {
   id: string;
@@ -52,7 +53,7 @@ class Translate extends React.Component<IProps, IState> {
         const { localize } = values;
         const { data, translateResult } = this.state;
         if (!translateResult) {
-          alert("翻译结果不能为空");
+          alert(`${local.OPTIONS_TRANSLATE_RESULT_IS_EMPTY}`);
           return;
         }
         if (data) {
@@ -138,20 +139,57 @@ class Translate extends React.Component<IProps, IState> {
     });
   }
 
-  public renderOriginResult = () => {
-    const { data } = this.state;
+  public renderTranslateI18n = () => {
+    const { data, localize } = this.state;
     return (
       <>
-
+        <h5>{local.OPTIONS_I18N_OUTPUT_RESULT}{ data ? localize : "en"}</h5>
+        <TextArea
+          className={styles["textrea-container"]}
+          placeholder=""
+          autosize={{ minRows: 2, maxRows: 22 }}
+          value={ data ? data.localizesResult : ""}
+        />
       </>
     );
   }
 
-  public renderTranslateI18n = () => {
-    const { data, localize } = this.state;
-    const { getFieldDecorator } = this.props.form;
+  public renderWaitTranslateI18nText = () => {
+    const { data, translateResult } = this.state;
+    const text = extractText(data);
     return (
       <>
+        <h5>{local.OPTIONS_TRANSLATE_ORIGIN}{ data ? data.origin : ""}</h5>
+        <TextArea
+          className={styles["textrea-container"]}
+          placeholder=""
+          autosize={{ minRows: 2, maxRows: 8 }}
+          value={ data ? data.result : ""}
+        />
+        <h5 className={styles["translate-result"]}>{local.OPTIONS_WAIT_TRANSLATE_RESULT}</h5>
+        <TextArea
+          className={styles["textrea-container"]}
+          placeholder=""
+          autosize={{ minRows: 2, maxRows: 8 }}
+          value={ text }
+        />
+        <h5 className={styles["translate-result"]}>{local.OPTIONS_TRANSLATE_RESULT} </h5>
+        <TextArea
+          className={styles["textrea-container"]}
+          placeholder=""
+          autosize={{ minRows: 2, maxRows: 8 }}
+          value={ translateResult }
+          onChange={this.onTextAreaTranslateResult}
+        />
+      </>
+    )
+  }
+
+  public render(){
+    const { data, visible } = this.state;
+    const { getFieldDecorator } = this.props.form;
+    return (
+      <div className={styles["translate"]}>
         <Form className={styles["form-container"]}>
           <Form.Item className={styles["form-select-container"]}>
             {
@@ -174,70 +212,24 @@ class Translate extends React.Component<IProps, IState> {
             className={styles["create-translate-result"]}
             onClick={this.createTranslateResult}
           >
-            输出
+            {local.OPTIONS_OUTPUT_TEXT}
           </div>
           <div
             className={styles["create-translate-result"]}
             onClick={this.exportResult}
           >
-            导出
+            {local.OPTIONS_EXPORT_TEXT}
           </div>
         </Form>
-        <h5>i18n 输出结果: { data ? localize : "en"}</h5>
-        <TextArea
-          className={styles["textrea-container"]}
-          placeholder=""
-          autosize={{ minRows: 2, maxRows: 20 }}
-          value={ data ? data.localizesResult : ""}
-        />
-      </>
-    );
-  }
-
-  public renderWaitTranslateI18nText = () => {
-    const { data, translateResult } = this.state;
-    const text = extractText(data);
-    return (
-      <>
-        <h5>翻译源: { data ? data.origin : ""}</h5>
-        <TextArea
-          className={styles["textrea-container"]}
-          placeholder=""
-          autosize={{ minRows: 2, maxRows: 8 }}
-          value={ data ? data.result : ""}
-        />
-        <h5 className={styles["translate-result"]}>待翻译文本: </h5>
-        <TextArea
-          className={styles["textrea-container"]}
-          placeholder=""
-          autosize={{ minRows: 2, maxRows: 8 }}
-          value={ text }
-        />
-        <h5 className={styles["translate-result"]}>翻译结果: </h5>
-        <TextArea
-          className={styles["textrea-container"]}
-          placeholder=""
-          autosize={{ minRows: 2, maxRows: 8 }}
-          value={ translateResult }
-          onChange={this.onTextAreaTranslateResult}
-        />
-      </>
-    )
-  }
-
-  public render(){
-    const { data, visible } = this.state;
-    return (
-      <div className={styles["translate"]}>
         <div className={styles["translate-container"]}>
-          <div className={styles["wait-translate-i18n-text"]}>
-            {
-              this.renderWaitTranslateI18nText()
-            }
-          </div>
           <div className={styles["translate-i18n-data"]}>
             {
               this.renderTranslateI18n()
+            }
+          </div>
+          <div className={styles["wait-translate-i18n-text"]}>
+            {
+              this.renderWaitTranslateI18nText()
             }
           </div>
         </div>
