@@ -62,3 +62,22 @@ export const extractText = (data: IData | undefined) => {
   }
   return "";
 }
+
+export const exportFile = (value: string, type: string, name: string) => {
+  const blob = new Blob([value], { type });
+  const URL = window.URL;
+  const blobUrl = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.style.visibility = "hidden";
+  anchor.href = blobUrl;
+  anchor.name = name;
+  anchor.target = "_blank";
+  const body = document.querySelector("body");
+  if (body) {
+    body.appendChild(anchor);
+    const ev = document.createEvent("MouseEvents");
+    ev.initEvent("click", true, true);
+    anchor.dispatchEvent(ev);
+    body.removeChild(anchor);
+  }
+}

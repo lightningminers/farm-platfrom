@@ -4,8 +4,9 @@ import styles from "./style.css";
 import SingletonData, { IData } from "@/shared/SingletonData";
 import { Input, Form, Select } from "antd";
 import { FormComponentProps } from "antd/lib/form"
-import { extractText } from "@/shared/utils";
+import { extractText, exportFile } from "@/shared/utils";
 import localizes from "@/shared/localizes";
+import WriteFile from "./components/writeFile";
 
 interface IParams {
   id: string;
@@ -16,6 +17,7 @@ interface IState {
   data: IData | undefined;
   translateResult: string;
   localize: string;
+  visible: boolean;
 }
 
 const { TextArea } = Input;
@@ -28,7 +30,8 @@ class Translate extends React.Component<IProps, IState> {
     this.state = {
       data: undefined,
       translateResult: "",
-      localize: "en"
+      localize: "en",
+      visible: false,
     }
   }
 
@@ -104,8 +107,28 @@ class Translate extends React.Component<IProps, IState> {
     });
   }
 
-  public exportResult = (e: React.MouseEvent<HTMLDivElement>) => {
 
+  public onOK = (name: string) => {
+    const { data } = this.state;
+    if (data) {
+      const { localizesResult } = data;
+      exportFile(localizesResult, "application/json", name);
+      this.setState({
+        visible: false,
+      });
+    }
+  }
+
+  public onCancel = () => {
+    this.setState({
+      visible: false,
+    });
+  }
+
+  public exportResult = (e: React.MouseEvent<HTMLDivElement>) => {
+    this.setState({
+      visible: true
+    });
   }
 
   public onTextAreaTranslateResult = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -203,8 +226,7 @@ class Translate extends React.Component<IProps, IState> {
   }
 
   public render(){
-    const { data } = this.state;
-    console.log(data);
+    const { data, visible } = this.state;
     return (
       <div className={styles["translate"]}>
         <div className={styles["translate-container"]}>
@@ -219,6 +241,12 @@ class Translate extends React.Component<IProps, IState> {
             }
           </div>
         </div>
+        <WriteFile
+          visible={visible}
+          tag={data? data.tag : ""}
+          handleOk={this.onOK}
+          handleCancel={this.onCancel}
+        />
       </div>
     )
   }
