@@ -2,11 +2,12 @@ import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import styles from "./style.css";
 import SingletonData, { IData } from "@/shared/SingletonData";
-import { Input, Form, Select } from "antd";
+import { Input, Form, Select, Tag } from "antd";
 import { FormComponentProps } from "antd/lib/form"
 import { extractText, exportFile } from "@/shared/utils";
 import localizes from "@/shared/localizes";
 import WriteFile from "./components/writeFile";
+import WriteCode from "./components/writeCode";
 import * as local from "../../local";
 
 interface IParams {
@@ -19,6 +20,7 @@ interface IState {
   translateResult: string;
   localize: string;
   visible: boolean;
+  visibleCode: boolean;
 }
 
 const { TextArea } = Input;
@@ -33,6 +35,7 @@ class Translate extends React.Component<IProps, IState> {
       translateResult: "",
       localize: "en",
       visible: false,
+      visibleCode: false,
     }
   }
 
@@ -112,8 +115,8 @@ class Translate extends React.Component<IProps, IState> {
   public onOK = (name: string) => {
     const { data } = this.state;
     if (data) {
-      const { localizesResult } = data;
-      exportFile(localizesResult, "application/json", name);
+      const { localizesResult, result } = data;
+      exportFile(localizesResult ? localizesResult : result, "application/json", name);
       this.setState({
         visible: false,
       });
@@ -126,9 +129,28 @@ class Translate extends React.Component<IProps, IState> {
     });
   }
 
+  public onCodeOK = (code: string) => {
+    exportFile(code, "text/js", "i18n.js");
+    this.setState({
+      visibleCode: false,
+    });
+  }
+
+  public onCodeCancel = () => {
+    this.setState({
+      visibleCode: false,
+    });
+  }
+
   public exportResult = (e: React.MouseEvent<HTMLDivElement>) => {
     this.setState({
       visible: true
+    });
+  }
+
+  public exportCode = (e: React.MouseEvent<HTMLDivElement>) => {
+    this.setState({
+      visibleCode: true
     });
   }
 
@@ -186,7 +208,7 @@ class Translate extends React.Component<IProps, IState> {
   }
 
   public render(){
-    const { data, visible } = this.state;
+    const { data, visible, visibleCode } = this.state;
     const { getFieldDecorator } = this.props.form;
     return (
       <div className={styles["translate"]}>
@@ -220,6 +242,12 @@ class Translate extends React.Component<IProps, IState> {
           >
             {local.OPTIONS_EXPORT_TEXT}
           </div>
+          <div
+            className={styles["create-translate-result"]}
+            onClick={this.exportCode}
+          >
+            {local.OPTIONS_EXPORT_CODE_TEXT}
+          </div>
         </Form>
         <div className={styles["translate-container"]}>
           <div className={styles["translate-i18n-data"]}>
@@ -238,6 +266,13 @@ class Translate extends React.Component<IProps, IState> {
           tag={data? data.tag : ""}
           handleOk={this.onOK}
           handleCancel={this.onCancel}
+        />
+        <WriteCode
+          visible={visibleCode}
+          tag={data? data.tag : ""}
+          result={data? data.result: ""}
+          handleOk={this.onCodeOK}
+          handleCancel={this.onCodeCancel}
         />
       </div>
     )

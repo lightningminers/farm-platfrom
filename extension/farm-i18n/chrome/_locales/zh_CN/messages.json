@@ -15,7 +15,10 @@
     "message": "输出"
   },
   "OPTIONS_EXPORT_TEXT": {
-    "message": "导出"
+    "message": "导出 i18n 配置"
+  },
+  "OPTIONS_EXPORT_CODE_TEXT": {
+    "message": "导出代码"
   },
   "OPTIONS_TRANSLATE_ORIGIN": {
     "message": "翻译源: "
@@ -40,5 +43,8 @@
   },
   "OPTIONS_DOWNLOAD_NAME_TEXT": {
     "message": "下载名称"
+  },
+  "OPTIONS_DOWNLOAD_EXPORT_LANGUAGEI": {
+    "message": "选择导出语言"
   }
 }

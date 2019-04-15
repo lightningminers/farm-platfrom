@@ -15,7 +15,10 @@
     "zh_CN": {"message": "输出"}
   },
   "OPTIONS_EXPORT_TEXT": {
-    "zh_CN": {"message": "导出"}
+    "zh_CN": {"message": "导出 i18n 配置"}
+  },
+  "OPTIONS_EXPORT_CODE_TEXT": {
+    "zh_CN": {"message": "导出代码"}
   },
   "OPTIONS_TRANSLATE_ORIGIN": {
     "zh_CN": {"message": "翻译源: "}
@@ -40,5 +43,8 @@
   },
   "OPTIONS_DOWNLOAD_NAME_TEXT": {
     "zh_CN": {"message": "下载名称"}
+  },
+  "OPTIONS_DOWNLOAD_EXPORT_LANGUAGEI": {
+    "zh_CN": {"message": "选择导出语言"}
   }
 }
