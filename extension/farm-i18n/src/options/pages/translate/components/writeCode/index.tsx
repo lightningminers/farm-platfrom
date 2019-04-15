@@ -45,7 +45,7 @@ const createCode = (result: string, tag: string, name: string): string => {
   if (tag === "chrome") {
     const keys = Object.keys(json);
     for (const iterator of keys) {
-      r += `const ${iterator} = getMessage("${iterator}");\n`;
+      r += `export const ${iterator} = getMessage("${iterator}");\n`;
     }
     if (name === "TypeScript") {
       return `${chromeCodeTypeScriptTemplate}${r}`;
