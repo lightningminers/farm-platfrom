@@ -2,19 +2,19 @@
 
 ![img](https://img.shields.io/github/license/icepy/farm-platfrom.svg) ![img](https://img.shields.io/github/last-commit/icepy/farm-platfrom.svg) ![img](https://img.shields.io/github/downloads/icepy/farm-platfrom/total.svg)
 
-i18n 国际化运营支持平台
+简单易用的 i18n 国际化编辑平台
 
 ## 支持
 
+- [farm-i18n](./farm-i18n) 管理 i18n 国际化配置文件的 Extension
 - [farm-translation](./packages/farm-translation) 命令行工具
 - [webpack-extract-i18n-plugin](./packages/webpack-extract-i18n-plugin) Webpack 插件
-- [farm-i18n](./extension/farm-i18n) 管理 i18n 国际化配置文件的 Extension
 
 ## 如何使用
 
 请先下载 [Chrome Extension Releases](https://github.com/icepy/farm-platfrom/releases)  使用 `farm-i18n` 来管理你的 i18n 配置文件。
 
-![](./extension/farm-i18n/farm-i18n-2.gif)
+![](./farm-i18n/farm-i18n-2.gif)
 
 格式如下：
 
